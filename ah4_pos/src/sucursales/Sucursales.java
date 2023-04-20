@@ -1,5 +1,5 @@
 
-package clases;
+package sucursales;
 
 public class Sucursales {
     private int codido;

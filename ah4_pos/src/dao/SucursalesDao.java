@@ -1,7 +1,7 @@
 package dao;
 
 import java.util.LinkedList;
-import clases.Sucursales;
+import sucursales.Sucursales;
 
 public interface SucursalesDao {
 

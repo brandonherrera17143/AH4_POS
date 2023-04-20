@@ -1,15 +1,22 @@
 package model;
 
-
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import dao.SucursalesDao;
+import java.awt.EventQueue;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import clases.Sucursales;
+import sucursales.Sucursales;
 
 public class SucursalDaoRelacional implements SucursalesDao {
 
@@ -50,7 +57,7 @@ public class SucursalDaoRelacional implements SucursalesDao {
             ps.setInt(1, codigo);
             rs = ps.executeQuery();
             if (rs.next()) {
-                
+                System.out.println(rs.getInt(1) + ", " + rs.getString(2) + ", " + rs.getString(3) + ", " + rs.getString(4) + ", " + rs.getInt(5));
                 return new Sucursales(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5));
 
             } else {

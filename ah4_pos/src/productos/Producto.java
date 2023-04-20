@@ -1,5 +1,5 @@
 
-package clases;
+package productos;
 
 
 public class Producto {
@@ -18,14 +18,6 @@ public class Producto {
         this.cantidad = cantidad;
         this.precio = precio;
     }
-
-    public Producto(String nombre, String descripcion, int cantidad, float precio) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.cantidad = cantidad;
-        this.precio = precio;
-    }
-    
 
     public int getCodigo() {
         return this.codigo;

@@ -3,7 +3,7 @@ package disenoNuevo;
 import javax.swing.table.DefaultTableModel;
 
 import model.SucursalDaoRelacional;
-import clases.Sucursales;
+import sucursales.Sucursales;
 
 public class SucursalesTabla extends javax.swing.JPanel {
     
