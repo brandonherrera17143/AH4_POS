@@ -3,30 +3,39 @@ package disenoNuevo;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_OPTION;
 import model.SucursalDaoRelacional;
-import sucursales.Sucursales;
+import clases.Sucursales;
 
 public class SucursalesPerfil extends javax.swing.JPanel {
 
-    
     public int buscar;
 
     public SucursalesPerfil() {
         initComponents();
+        txtCodigo.setEnabled(false);
+        txtCodigo.setVisible(false);
+        lblCodigo.setVisible(false);
+        jScodigo.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialogBusquedaCodigo = new javax.swing.JDialog();
+        jLabel5 = new javax.swing.JLabel();
+        btnCancelar = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        txtCodigoBus = new javax.swing.JTextField();
+        btnBus = new javax.swing.JButton();
         jpFondo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblCodigo = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtCodigo = new javax.swing.JTextField();
-        jSeparator3 = new javax.swing.JSeparator();
+        jScodigo = new javax.swing.JSeparator();
         txtDireccion = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
         btnBuscar = new javax.swing.JButton();
@@ -41,6 +50,34 @@ public class SucursalesPerfil extends javax.swing.JPanel {
         jSeparator8 = new javax.swing.JSeparator();
         btnCancelarBusqueda = new javax.swing.JButton();
 
+        jDialogBusquedaCodigo.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Buscar Codigo");
+        jDialogBusquedaCodigo.getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 130, 30));
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+        jDialogBusquedaCodigo.getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 110, 20));
+
+        jLabel7.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jLabel7.setText("Codigo:");
+        jDialogBusquedaCodigo.getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 50, 20));
+        jDialogBusquedaCodigo.getContentPane().add(txtCodigoBus, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 80, 30));
+
+        btnBus.setText("Buscar");
+        btnBus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBusActionPerformed(evt);
+            }
+        });
+        jDialogBusquedaCodigo.getContentPane().add(btnBus, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 100, 20));
+
         setPreferredSize(new java.awt.Dimension(860, 410));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -54,9 +91,9 @@ public class SucursalesPerfil extends javax.swing.JPanel {
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jpFondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 181, 40));
 
-        jLabel2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel2.setText("Codigo");
-        jpFondo.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 251, 20));
+        lblCodigo.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        lblCodigo.setText("Codigo");
+        jpFondo.add(lblCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 60, 20));
 
         jLabel3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel3.setText("Nombre");
@@ -96,11 +133,11 @@ public class SucursalesPerfil extends javax.swing.JPanel {
                 txtCodigoActionPerformed(evt);
             }
         });
-        jpFondo.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 200, 20));
+        jpFondo.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 90, 20));
 
-        jSeparator3.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
-        jpFondo.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 200, 6));
+        jScodigo.setBackground(new java.awt.Color(0, 0, 0));
+        jScodigo.setForeground(new java.awt.Color(0, 0, 0));
+        jpFondo.add(jScodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 90, 6));
 
         txtDireccion.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtDireccion.setBorder(null);
@@ -134,7 +171,7 @@ public class SucursalesPerfil extends javax.swing.JPanel {
                 btnBuscarActionPerformed(evt);
             }
         });
-        jpFondo.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 50, 60, 40));
+        jpFondo.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, 120, 40));
 
         btnInsertar.setBackground(new java.awt.Color(84, 166, 234));
         btnInsertar.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -241,7 +278,7 @@ public class SucursalesPerfil extends javax.swing.JPanel {
                 btnCancelarBusquedaActionPerformed(evt);
             }
         });
-        jpFondo.add(btnCancelarBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 50, 60, 40));
+        jpFondo.add(btnCancelarBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 50, 60, 40));
 
         add(jpFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 410));
     }// </editor-fold>//GEN-END:initComponents
@@ -271,12 +308,16 @@ public class SucursalesPerfil extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDireccionActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        int codigo = Integer.parseInt(txtCodigo.getText());
-        buscarSucursal(codigo);
+        jDialogBusquedaCodigo.setVisible(true);
+        jDialogBusquedaCodigo.setSize(450, 200);
+        jDialogBusquedaCodigo.setLocationRelativeTo(null);
+        txtCodigo.setVisible(true);
+        lblCodigo.setVisible(true);
+        jScodigo.setVisible(true);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        if (txtCodigo.getText().isEmpty() || txtNombre.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtTelefono.getText().isEmpty()) {
+        if (txtNombre.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtTelefono.getText().isEmpty()) {
             camposVacios();
         } else {
             guardarSucursales();
@@ -284,24 +325,27 @@ public class SucursalesPerfil extends javax.swing.JPanel {
     }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-         if (txtCodigo.getText().isEmpty() || txtNombre.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtTelefono.getText().isEmpty()) {
+        if (txtCodigo.getText().isEmpty() || txtNombre.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtTelefono.getText().isEmpty()) {
             camposVacios();
         } else {
-            actualizarSucursal();
-            vaciarCampos();
-            
+            int res = JOptionPane.showConfirmDialog(null, "Esta seguro de actualizar el producto", "Alerta!", JOptionPane.YES_NO_OPTION);
+            if (res == YES_OPTION) {
+                actualizarSucursal();
+                vaciarCampos();
+            }
+
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        if (txtCodigo.getText().isEmpty() || txtNombre.getText().isEmpty()|| txtDireccion.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtTelefono.getText().isEmpty()) {
+        if (txtCodigo.getText().isEmpty() || txtNombre.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtTelefono.getText().isEmpty()) {
             camposVacios();
-        } else{
-            int res = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar la sucursal?","Alerta!",JOptionPane.YES_NO_OPTION);
+        } else {
+            int res = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar la sucursal?", "Alerta!", JOptionPane.YES_NO_OPTION);
             if (res == YES_OPTION) {
-                 eliminarSucursal();
+                eliminarSucursal();
             }
-        }  
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtCorreoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCorreoMousePressed
@@ -324,52 +368,62 @@ public class SucursalesPerfil extends javax.swing.JPanel {
         vaciarCampos();
     }//GEN-LAST:event_btnCancelarBusquedaActionPerformed
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        jDialogBusquedaCodigo.setVisible(false);
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnBusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusActionPerformed
+        int cod = Integer.parseInt(txtCodigoBus.getText());
+        buscarSucursal(cod);
+        jDialogBusquedaCodigo.setVisible(false);
+    }//GEN-LAST:event_btnBusActionPerformed
+
     public void guardarSucursales() {
         String nombre = txtNombre.getText();
         String direccion = txtDireccion.getText();
         String correo = txtCorreo.getText();
         int telefono = Integer.parseInt(txtTelefono.getText());
-        Sucursales sucursal = new Sucursales(nombre,direccion,correo,telefono);
+        Sucursales sucursal = new Sucursales(nombre, direccion, correo, telefono);
         SucursalDaoRelacional in = new SucursalDaoRelacional();
         in.crear_sucursal(sucursal);
         JOptionPane.showMessageDialog(null, "La sucursal " + sucursal.getNombre() + " fue agregada exitosamente! ");
-        vaciarCampos();      
+        vaciarCampos();
     }
-    
-    private void vaciarCampos(){
-        txtCodigo.setEnabled(true);
+
+    private void vaciarCampos() {
         txtCodigo.setText("");
         txtNombre.setText("");
         txtDireccion.setText("");
         txtCorreo.setText("");
         txtTelefono.setText("");
-       // txtCodigo.setEnabled(true);
-       
+        txtCodigo.setVisible(false);
+        lblCodigo.setVisible(false);
+        jScodigo.setVisible(false);
+
     }
 
-    private void buscarSucursal(int codigo) {
+    public void buscarSucursal(int codigo) {
         SucursalDaoRelacional buscar = new SucursalDaoRelacional();
         Sucursales sucursal = buscar.obtener_sucursales(codigo);
         txtNombre.setText(sucursal.getNombre());
         txtDireccion.setText(sucursal.getDireccion());
         txtCorreo.setText(sucursal.getCorreo());
         txtTelefono.setText(sucursal.getTelefono() + "");
-        txtCodigo.setEnabled(false);
+        txtCodigo.setText(sucursal.getCodido() + "");
     }
-    
-    private void actualizarSucursal(){
-        
+
+    private void actualizarSucursal() {
+
         int codigo = Integer.parseInt(txtCodigo.getText());
         String nombre = txtNombre.getText();
         String direccion = txtDireccion.getText();
         String correo = txtCorreo.getText();
         int telefono = Integer.parseInt(txtTelefono.getText());
-        
-        
+
         Sucursales actualizarSucursal = new Sucursales(codigo, nombre, direccion, correo, telefono);
         SucursalDaoRelacional insertar = new SucursalDaoRelacional();
         insertar.modificar_sucursales(actualizarSucursal);
-        JOptionPane.showMessageDialog(null, "Acualizaste Sucursal con el codigo: " + codigo);       
+        JOptionPane.showMessageDialog(null, "Se actualizo el producto con el codigo: " + codigo);
     }
 
     private void eliminarSucursal() {
@@ -382,9 +436,7 @@ public class SucursalesPerfil extends javax.swing.JPanel {
 
     private void camposVacios() {
 
-        if (txtCodigo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No te olvides del Codigo es muy importante! ");
-        } else if (txtNombre.getText().isEmpty()) {
+        if (txtNombre.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Aun no colocaste nombre de la sucursal");
         } else if (txtDireccion.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Agregaste la direccion?");
@@ -398,23 +450,29 @@ public class SucursalesPerfil extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBus;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCancelarBusqueda;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnInsertar;
+    private javax.swing.JDialog jDialogBusquedaCodigo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jScodigo;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JPanel jpFondo;
+    private javax.swing.JLabel lblCodigo;
     private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtCodigoBus;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtNombre;
