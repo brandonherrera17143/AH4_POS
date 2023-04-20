@@ -1,36 +1,36 @@
+
 package model;
 
-
-import dao.SucursalesDao;
+import clases.Producto;
+import dao.ProductosDao;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.LinkedList;
-
 import javax.swing.JOptionPane;
-import clases.Sucursales;
 
-public class SucursalDaoRelacional implements SucursalesDao {
-
+public class ProductoDaoRelacional implements ProductosDao{
+    
     Connection con;
     PreparedStatement ps;
     ResultSet rs;
     Conexion acceso = new Conexion();
-
+    
     @Override
-    public LinkedList<Sucursales> mostrar() {
-        String sql = "select * from sucursales";
+    public LinkedList<Producto> mostrar() {
+       String sql = "select * from productos";
 
        
-            LinkedList<Sucursales> mostrar = new LinkedList();
+            LinkedList<Producto> mostrar = new LinkedList();
             try {
                 con = acceso.Conectar();
                 ps = con.prepareStatement(sql);
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                    mostrar.add(new Sucursales(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5)));
-
+                    mostrar.add(new Producto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getFloat(5)));
                 }
                 return mostrar;
             } catch (SQLException e) {
@@ -41,8 +41,8 @@ public class SucursalDaoRelacional implements SucursalesDao {
     }
 
     @Override
-    public Sucursales obtener_sucursales(int codigo) {
-        String sql = "select * from sucursales where codigo=?";
+    public Producto obtener_productos(int codigo) {
+        String sql = "select * from productos where codigo=?";
 
         try {
             con = acceso.Conectar();
@@ -50,8 +50,7 @@ public class SucursalDaoRelacional implements SucursalesDao {
             ps.setInt(1, codigo);
             rs = ps.executeQuery();
             if (rs.next()) {
-                
-                return new Sucursales(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5));
+                return new Producto(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getFloat(5));
 
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontraron Resultados");
@@ -60,57 +59,56 @@ public class SucursalDaoRelacional implements SucursalesDao {
         } catch (NullPointerException e) {
             System.out.println("Se produjo una excepción NullPointerException: " + e.getMessage());
             return null;
-        } catch (Exception e) {
+        } catch (HeadlessException | SQLException e) {
             System.out.println(e);
         }
         return null;
     }
 
     @Override
-    public void crear_sucursal(Sucursales sucursal) {
-        String sql = "insert into sucursales (nombre,direccion,correo,telefono) values(?,?,?,?);";
+    public void crear_producto(Producto producto) {
+         String sql = "insert into productos (nombre,descripcion,cantidad,precio) values(?,?,?,?);";
         try {
             con = acceso.Conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, sucursal.getNombre());
-            ps.setString(2, sucursal.getDireccion());
-            ps.setString(3, sucursal.getCorreo());
-            ps.setInt(4, sucursal.getTelefono());
+            ps.setString(1, producto.getNombre());
+            ps.setString(2, producto.getDescripcion());
+            ps.setInt(3, producto.getCantidad());
+            ps.setFloat(4, producto.getPrecio());
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
     @Override
-    public void modificar_sucursales(Sucursales sucursal) {
-        String sql = "update sucursales set nombre=?, direccion=?, correo=?, telefono=? where codigo=?;";
+    public void modificar_producto(Producto producto) {
+        String sql = "update productos set nombre=?, descripcion=?, cantidad=?, precio=? where codigo=?;";
         try {
             con = acceso.Conectar();
             ps = con.prepareStatement(sql);
-            ps.setString(1, sucursal.getNombre());
-            ps.setString(2, sucursal.getDireccion());
-            ps.setString(3, sucursal.getCorreo());
-            ps.setInt(4, sucursal.getTelefono());
-            ps.setInt(5, sucursal.getCodido());
+            ps.setString(1, producto.getNombre());
+            ps.setString(2, producto.getDescripcion());
+            ps.setInt(3, producto.getCantidad());
+            ps.setFloat(4, producto.getPrecio());
+            ps.setInt(5, producto.getCodigo());
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
 
     @Override
-    public void eliminar_sucursales(int codigo) {
-        String sql = "delete from sucursales where codigo=?;";
+    public void eliminar_producto(int codigo) {
+        String sql = "delete from productos where codigo=?;";
         try {
             con = acceso.Conectar();
             ps = con.prepareStatement(sql);
             ps.setInt(1, codigo);
             ps.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
     
-
 }

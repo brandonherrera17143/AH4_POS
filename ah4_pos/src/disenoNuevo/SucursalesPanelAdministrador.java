@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 import model.Conexion;
 import model.JsonCargarDatos;
 import model.SucursalDaoRelacional;
-import sucursales.Sucursales;
+import clases.Sucursales;
 
 public class SucursalesPanelAdministrador extends javax.swing.JPanel {
 
