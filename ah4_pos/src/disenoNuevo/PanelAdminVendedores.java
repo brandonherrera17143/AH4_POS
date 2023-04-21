@@ -5,9 +5,15 @@ import clases.Vendedor;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.BorderLayout;
@@ -216,16 +222,40 @@ public class PanelAdminVendedores extends javax.swing.JPanel {
             PdfWriter.getInstance(doc, gen);
             doc.open();
             
-            Paragraph parrafo = new Paragraph("Datos de Productos");
-            parrafo.setAlignment(1);
-            doc.add(parrafo);
+            Paragraph titulo = new Paragraph("Reporte de Vendedores");
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            Font fontTitulo = FontFactory.getFont(FontFactory.COURIER, 18, Font.BOLD, new BaseColor(0, 102, 204));
+            titulo.setFont(fontTitulo);
+            doc.add(titulo);
+
             doc.add(new Paragraph("\n"));
             PdfPTable tabla = new PdfPTable(5);
-            tabla.addCell("Nombre");
-            tabla.addCell("Caja");
-            tabla.addCell("Ventas");
-            tabla.addCell("Genero");
-            tabla.addCell("Password");
+            tabla.setWidthPercentage(100);
+
+            float[] cAn = {0.70f, 0.45f, 0.45f,0.50f, 2f};
+            tabla.setWidths(cAn);
+
+            Font fontHeader = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.WHITE);
+
+            PdfPCell celdaNombre = new PdfPCell(new Phrase("Nombre", fontHeader));
+            celdaNombre.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaNombre);
+
+            PdfPCell celdaC = new PdfPCell(new Phrase("Caja", fontHeader));
+            celdaC.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaC);
+
+            PdfPCell celdaV = new PdfPCell(new Phrase("Ventas", fontHeader));
+            celdaV.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaV);
+
+            PdfPCell celdaG = new PdfPCell(new Phrase("Genero", fontHeader));
+            celdaG.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaG);
+            
+            PdfPCell celdaP = new PdfPCell(new Phrase("Password", fontHeader));
+            celdaP.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaP);
             try {
                 String sql = "select * from vendedores";
                 con = acceso.Conectar();

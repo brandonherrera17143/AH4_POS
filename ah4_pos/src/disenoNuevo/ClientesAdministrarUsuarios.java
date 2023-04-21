@@ -4,9 +4,15 @@ import clases.Cliente;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.BorderLayout;
@@ -212,15 +218,36 @@ public class ClientesAdministrarUsuarios extends javax.swing.JPanel {
             PdfWriter.getInstance(doc, gen);
             doc.open();
             
-            Paragraph parrafo = new Paragraph("Datos de Clientes");
-            parrafo.setAlignment(1);
-            doc.add(parrafo);
+            Paragraph titulo = new Paragraph("Reporte de Clientes");
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            Font fontTitulo = FontFactory.getFont(FontFactory.COURIER, 18, Font.BOLD, new BaseColor(0, 102, 204));
+            titulo.setFont(fontTitulo);
+            doc.add(titulo);
+
             doc.add(new Paragraph("\n"));
             PdfPTable tabla = new PdfPTable(4);
-            tabla.addCell("Nombre");
-            tabla.addCell("Nit");
-            tabla.addCell("Correo");
-            tabla.addCell("Genero");
+            tabla.setWidthPercentage(100);
+
+            float[] cAn = {1f, 1f, 2f, 1f};
+            tabla.setWidths(cAn);
+
+            Font fontHeader = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.WHITE);
+
+            PdfPCell celdaNombre = new PdfPCell(new Phrase("Nombre", fontHeader));
+            celdaNombre.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaNombre);
+
+            PdfPCell celdaNit = new PdfPCell(new Phrase("Nit", fontHeader));
+            celdaNit.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaNit);
+
+            PdfPCell celdaCorreo = new PdfPCell(new Phrase("Correo", fontHeader));
+            celdaCorreo.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaCorreo);
+
+            PdfPCell celdaG = new PdfPCell(new Phrase("Genero", fontHeader));
+            celdaG.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaG);
             try {
                 String sql = "select * from clientes";
                 con = acceso.Conectar();
