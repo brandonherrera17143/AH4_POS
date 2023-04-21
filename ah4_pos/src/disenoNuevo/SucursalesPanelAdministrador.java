@@ -22,6 +22,12 @@ import model.Conexion;
 import model.JsonCargarDatos;
 import model.SucursalDaoRelacional;
 import clases.Sucursales;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
 
 public class SucursalesPanelAdministrador extends javax.swing.JPanel {
 
@@ -144,7 +150,6 @@ public class SucursalesPanelAdministrador extends javax.swing.JPanel {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         exportarPDF();
-
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void btbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbAgregarActionPerformed
@@ -204,19 +209,40 @@ public class SucursalesPanelAdministrador extends javax.swing.JPanel {
     public void exportarPDF() {
         Document doc = new Document();
         try {
-            String ruta = System.getProperty("user.home");
-            PdfWriter.getInstance(doc, new FileOutputStream(ruta + "/Desktop/Reporte_Sucursales.pdf"));
+            FileOutputStream gen = new FileOutputStream("Reporte_Sucursales.pdf");
+            PdfWriter.getInstance(doc, gen);
             doc.open();
-            
-            Paragraph parrafo = new Paragraph("Datos de Sucursales");
-            parrafo.setAlignment(1);
-            doc.add(parrafo);
+
+            Paragraph titulo = new Paragraph("Reporte de Sucursales");
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            Font fontTitulo = FontFactory.getFont(FontFactory.COURIER, 18, Font.BOLD, new BaseColor(0, 102, 204));
+            titulo.setFont(fontTitulo);
+            doc.add(titulo);
+
             doc.add(new Paragraph("\n"));
             PdfPTable tabla = new PdfPTable(4);
-            tabla.addCell("Nombre");
-            tabla.addCell("Direccion");
-            tabla.addCell("Correo");
-            tabla.addCell("Telefono");
+            tabla.setWidthPercentage(100);
+
+            float[] cAn = {2f, 2f, 2f, 1f};
+            tabla.setWidths(cAn);
+
+            Font fontHeader = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.WHITE);
+
+            PdfPCell celdaNombre = new PdfPCell(new Phrase("Nombre", fontHeader));
+            celdaNombre.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaNombre);
+
+            PdfPCell celdaDireccion = new PdfPCell(new Phrase("Dirección", fontHeader));
+            celdaDireccion.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaDireccion);
+
+            PdfPCell celdaCorreo = new PdfPCell(new Phrase("Correo", fontHeader));
+            celdaCorreo.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaCorreo);
+
+            PdfPCell celdaTelefono = new PdfPCell(new Phrase("Teléfono", fontHeader));
+            celdaTelefono.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaTelefono);
             try {
                 String sql = "select * from sucursales";
                 con = acceso.Conectar();
@@ -224,10 +250,10 @@ public class SucursalesPanelAdministrador extends javax.swing.JPanel {
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     do {
-                        tabla.addCell(rs.getString(1));
                         tabla.addCell(rs.getString(2));
                         tabla.addCell(rs.getString(3));
                         tabla.addCell(rs.getString(4));
+                        tabla.addCell(rs.getString(5));
                     } while (rs.next());
                     doc.add(tabla);
                 }
@@ -238,6 +264,8 @@ public class SucursalesPanelAdministrador extends javax.swing.JPanel {
         } catch (DocumentException | HeadlessException | FileNotFoundException e) {
         }
     }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btbAgregar;
     private javax.swing.JButton btnRegresarTabla;

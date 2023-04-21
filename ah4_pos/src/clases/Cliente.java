@@ -1,4 +1,4 @@
-package clientes;
+package clases;
 
 public class Cliente {
     private int codigo;
@@ -17,6 +17,13 @@ public class Cliente {
         this.genero = genero;
     }
 
+    public Cliente(String nombre, int nit, String correo, String genero) {
+        this.nombre = nombre;
+        this.nit = nit;
+        this.correo = correo;
+        this.genero = genero;
+    }
+    
     public int getCodigo() {
         return this.codigo;
     }

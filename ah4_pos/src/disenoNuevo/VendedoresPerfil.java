@@ -1,23 +1,26 @@
 package disenoNuevo;
 
+import clases.Vendedor;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_OPTION;
-import usuarios.Vendedor;
-import usuarios.Vendedores;
+import model.VenDaoRela;
 
 public class VendedoresPerfil extends javax.swing.JPanel {
 
     PanelAdminVendedores regresar;
-    public int buscar;
 
     public VendedoresPerfil() {
         initComponents();
+        txtCodigo.setEnabled(false);
+        txtCodigo.setVisible(false);
+        lblCodigo.setVisible(false);
+        jScodigo.setVisible(false);
         agregarDatosCombobox(); //inicializamos el combobox
     }
 
     public void agregarDatosCombobox() {
-        jcGenero.addItem("M");
-        jcGenero.addItem("F");
+        jcGenero.addItem("m");
+        jcGenero.addItem("f");
 
     }
 
@@ -25,9 +28,15 @@ public class VendedoresPerfil extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDVen = new javax.swing.JDialog();
+        jLabel10 = new javax.swing.JLabel();
+        btnCancelar3 = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        txtCodigoBus = new javax.swing.JTextField();
+        btnBus = new javax.swing.JButton();
         jpFondo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblCodigo = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -35,20 +44,49 @@ public class VendedoresPerfil extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         txtCodigo = new javax.swing.JTextField();
-        jSeparator3 = new javax.swing.JSeparator();
+        jScodigo = new javax.swing.JSeparator();
         txtCaja = new javax.swing.JTextField();
         txtPass = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
         jSeparator6 = new javax.swing.JSeparator();
         jcGenero = new javax.swing.JComboBox<>();
         btnGenerarPass = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
         btnInsertar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator7 = new javax.swing.JSeparator();
         txtVentas = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        btnCancelarBusqueda = new javax.swing.JButton();
+
+        jDVen.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel10.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Buscar Codigo");
+        jDVen.getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 130, 30));
+
+        btnCancelar3.setText("Cancelar");
+        btnCancelar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelar3ActionPerformed(evt);
+            }
+        });
+        jDVen.getContentPane().add(btnCancelar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 110, 20));
+
+        jLabel11.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jLabel11.setText("Codigo:");
+        jDVen.getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 50, 20));
+        jDVen.getContentPane().add(txtCodigoBus, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 80, 30));
+
+        btnBus.setText("Buscar");
+        btnBus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBusActionPerformed(evt);
+            }
+        });
+        jDVen.getContentPane().add(btnBus, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 100, 20));
 
         setPreferredSize(new java.awt.Dimension(860, 410));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -63,9 +101,9 @@ public class VendedoresPerfil extends javax.swing.JPanel {
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jpFondo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 181, 40));
 
-        jLabel2.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel2.setText("Codigo");
-        jpFondo.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 251, 30));
+        lblCodigo.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        lblCodigo.setText("Codigo");
+        jpFondo.add(lblCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 50, 30));
 
         jLabel3.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel3.setText("Nombre");
@@ -113,11 +151,11 @@ public class VendedoresPerfil extends javax.swing.JPanel {
                 txtCodigoActionPerformed(evt);
             }
         });
-        jpFondo.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 460, 20));
+        jpFondo.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 70, 20));
 
-        jSeparator3.setBackground(new java.awt.Color(0, 0, 0));
-        jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
-        jpFondo.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 460, 6));
+        jScodigo.setBackground(new java.awt.Color(0, 0, 0));
+        jScodigo.setForeground(new java.awt.Color(0, 0, 0));
+        jpFondo.add(jScodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 70, 6));
 
         txtCaja.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txtCaja.setBorder(null);
@@ -178,22 +216,6 @@ public class VendedoresPerfil extends javax.swing.JPanel {
             }
         });
         jpFondo.add(btnGenerarPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 330, 220, 30));
-
-        btnBuscar.setBackground(new java.awt.Color(84, 166, 234));
-        btnBuscar.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/BUSCAR.png"))); // NOI18N
-        btnBuscar.setText("BUSCAR");
-        btnBuscar.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 20, 1, 1, new java.awt.Color(0, 0, 0)));
-        btnBuscar.setBorderPainted(false);
-        btnBuscar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnBuscar.setIconTextGap(15);
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-        jpFondo.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 40, 150, 40));
 
         btnInsertar.setBackground(new java.awt.Color(84, 166, 234));
         btnInsertar.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -265,7 +287,38 @@ public class VendedoresPerfil extends javax.swing.JPanel {
         });
         jpFondo.add(txtVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 460, -1));
 
-        add(jpFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 410));
+        btnBuscar.setBackground(new java.awt.Color(84, 166, 234));
+        btnBuscar.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/BUSCAR.png"))); // NOI18N
+        btnBuscar.setText("BUSCAR");
+        btnBuscar.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 20, 1, 1, new java.awt.Color(0, 0, 0)));
+        btnBuscar.setBorderPainted(false);
+        btnBuscar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnBuscar.setIconTextGap(15);
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        jpFondo.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, 120, 40));
+
+        btnCancelarBusqueda.setBackground(new java.awt.Color(84, 166, 234));
+        btnCancelarBusqueda.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        btnCancelarBusqueda.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelarBusqueda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cancelar.png"))); // NOI18N
+        btnCancelarBusqueda.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 20, 1, 1, new java.awt.Color(0, 0, 0)));
+        btnCancelarBusqueda.setBorderPainted(false);
+        btnCancelarBusqueda.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnCancelarBusqueda.setIconTextGap(15);
+        btnCancelarBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarBusquedaActionPerformed(evt);
+            }
+        });
+        jpFondo.add(btnCancelarBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 60, 40));
+
+        add(jpFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 420));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNombreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreMousePressed
@@ -305,12 +358,8 @@ public class VendedoresPerfil extends javax.swing.JPanel {
         txtPass.setText(pass.generadorContrasenia());
     }//GEN-LAST:event_btnGenerarPassActionPerformed
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        buscarVendedor();
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
-        if (txtCodigo.getText().isEmpty() || txtNombre.getText().isEmpty() || txtCaja.getText().isEmpty() || txtVentas.getText().isEmpty() || txtPass.getText().isEmpty()) {
+        if (txtNombre.getText().isEmpty() || txtCaja.getText().isEmpty() || txtVentas.getText().isEmpty() || txtPass.getText().isEmpty()) {
             camposVacios();
         } else {
             guardarVendedor();
@@ -321,15 +370,24 @@ public class VendedoresPerfil extends javax.swing.JPanel {
          if (txtCodigo.getText().isEmpty() || txtNombre.getText().isEmpty() || txtCaja.getText().isEmpty() || txtVentas.getText().isEmpty() || txtPass.getText().isEmpty()) {
             camposVacios();
         } else {
-            actualizarVendedor();
-            vaciarCampos();
-            conFilas = 0;
-            
+            int res = JOptionPane.showConfirmDialog(null, "Esta seguro de actualizar el vendedor", "Alerta!", JOptionPane.YES_NO_OPTION);
+            if (res == YES_OPTION) {
+                actualizarVendedor();
+                vaciarCampos();
+            }
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        eliminarVendedor();
+        if (txtCodigo.getText().isEmpty() || txtNombre.getText().isEmpty() || txtCaja.getText().isEmpty() || txtVentas.getText().isEmpty() || txtPass.getText().isEmpty()) {
+            camposVacios();
+        } else{
+            int res = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar el cliente","Alerta!",JOptionPane.YES_NO_OPTION);
+            if (res == YES_OPTION) {
+                 eliminarVendedor();
+            }
+        }  
+        
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void jcGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcGeneroActionPerformed
@@ -344,97 +402,105 @@ public class VendedoresPerfil extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtVentasActionPerformed
 
-    public void guardarVendedor() {
-        Vendedor vendedor = new Vendedor();
-        vendedor.setCodigo(Integer.parseInt(txtCodigo.getText()));
-        vendedor.setNombre(txtNombre.getText());
-        vendedor.setCaja(Integer.parseInt(txtCaja.getText()));
-        vendedor.setVentas(Integer.parseInt(txtVentas.getText()));
-        vendedor.setGenero(String.valueOf(jcGenero.getSelectedItem()));
-        vendedor.setPass(txtPass.getText());
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        jcGenero.removeAllItems();
+        jDVen.setVisible(true);
+        jDVen.setSize(450, 200);
+        jDVen.setLocationRelativeTo(null);
+        txtCodigo.setVisible(true);
+        lblCodigo.setVisible(true);
+        jScodigo.setVisible(true);
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
-        //Vendedores.listaVendedores.add(vendedor);
-        JOptionPane.showMessageDialog(null, "El vendedor " + vendedor.getNombre() + " fue agregado exitosamente! ");
-        vaciarCampos();      
+    private void btnCancelarBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarBusquedaActionPerformed
+        vaciarCampos();
+    }//GEN-LAST:event_btnCancelarBusquedaActionPerformed
+
+    private void btnCancelar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar3ActionPerformed
+        jDVen.setVisible(false);
+        txtCodigo.setVisible(false);
+        lblCodigo.setVisible(false);
+        jScodigo.setVisible(false);
+    }//GEN-LAST:event_btnCancelar3ActionPerformed
+
+    private void btnBusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusActionPerformed
+        int cod = Integer.parseInt(txtCodigoBus.getText());
+        buscarVendedor(cod);
+        jDVen.setVisible(false);
+    }//GEN-LAST:event_btnBusActionPerformed
+
+    public void guardarVendedor() {
+        String nombre = txtNombre.getText();
+        int c = Integer.parseInt(txtCaja.getText());
+        int v = Integer.parseInt(txtVentas.getText());
+        String ge = String.valueOf(jcGenero.getSelectedItem());
+        String pass = txtPass.getText();
+
+        Vendedor ve = new Vendedor(nombre,c,v,ge,pass);
+        VenDaoRela in = new VenDaoRela();
+        in.crear_vendedor(ve);
+        JOptionPane.showMessageDialog(null, "Vendedor " + nombre + " se agrego exitosamente!");
+        vaciarCampos();   
     }
     
     private void vaciarCampos(){
-        txtCodigo.setEnabled(true);
         txtCodigo.setText("");
         txtNombre.setText("");
         txtCaja.setText("");
         txtVentas.setText("");
         txtPass.setText("");
+        txtCodigo.setVisible(false);
+        lblCodigo.setVisible(false);
+        jScodigo.setVisible(false);
     }
 
-    int conFilas = 0;
-    private void buscarVendedor() {
+    private void buscarVendedor(int codigo) {
+         int id = codigo;
+        VenDaoRela ac = new VenDaoRela();
+        Vendedor v = ac.obtener_vendedor(id);
 
-//        if (txtCodigo.getText().isEmpty()) {
-//            JOptionPane.showMessageDialog(null, "Debes ingresar un codigo!");
-//        } else {
-//            String idEncontrado = txtCodigo.getText().trim();
-//            Vendedor a;
-//            for (int i = 0; i < Vendedores.listaVendedores.size(); i++) {
-//                a = (Vendedor) Vendedores.listaVendedores.get(i);
-//                if (idEncontrado.equalsIgnoreCase(String.valueOf(a.getCodigo()))) {
-//                    txtNombre.setText(a.getNombre());
-//                    txtCaja.setText(String.valueOf(a.getCaja()));
-//                    txtVentas.setText(String.valueOf(a.getVentas()));
-//                    jcGenero.addItem(a.getGenero());
-//                    if (a.getGenero().equals("M")) {
-//                        jcGenero.addItem("F");
-//                    } else if (a.getGenero().equals("F")) {
-//                        jcGenero.addItem("M");
-//                    }
-//                    txtPass.setText(a.getPass());
-//                    buscar = i;
-//                    System.out.println(i);
-//                    txtCodigo.setEnabled(false);
-//                    conFilas = 1;
-//                    break;
-//                }
-//            }
-//        }
-//
-//        if (!txtCodigo.getText().isEmpty() && conFilas == 0) {
-//            JOptionPane.showMessageDialog(null, "El codigo " + txtCodigo.getText() + " no existe! ");
-//            txtCodigo.setText(null);
-//        }
+        txtCodigo.setText(Integer.toString(v.getCodigo()));
+        txtNombre.setText(v.getNombre());
+        txtCaja.setText(Integer.toString(v.getCaja()));
+        txtVentas.setText(Integer.toString(v.getVentas()));
+        
+        jcGenero.addItem(v.getGenero());
+        if (v.getGenero().equals("m")) {
+            jcGenero.addItem("f");
+        } else if (v.getGenero().equals("f")) {
+            jcGenero.addItem("m");
+        }
+        
+        txtPass.setText(v.getPass());
     }
     
     private void actualizarVendedor(){
-//        int codigo = Integer.parseInt(txtCodigo.getText());
-//        String nombre = txtNombre.getText();
-//        int caja = Integer.parseInt(txtCaja.getText());
-//        int venta = Integer.parseInt(txtVentas.getText());
-//        String genero = String.valueOf(jcGenero.getSelectedItem());
-//        String pass = txtPass.getText();
-//
-//        Vendedor actualizarVendedor = new Vendedor(codigo, nombre, caja, venta, genero, pass);
-//        Vendedores.listaVendedores.set(buscar, actualizarVendedor);
-//        JOptionPane.showMessageDialog(null, "Acualizaste el vendedor con el codigo: " + codigo);       
+        int codigo = Integer.parseInt(txtCodigo.getText());
+        String nombre = txtNombre.getText();
+        int ca = Integer.parseInt(txtCaja.getText());
+        int ve = Integer.parseInt(txtVentas.getText());
+        String ge = String.valueOf(jcGenero.getSelectedItem());
+        String pass = txtPass.getText();
+
+        Vendedor in = new Vendedor(codigo,nombre,ca,ve,ge,pass);
+        VenDaoRela ac = new VenDaoRela();
+        ac.modificar_vendedor(in);
+        JOptionPane.showMessageDialog(null, "Vendedor " + nombre + " se actualizo exitosamente!");
+        vaciarCampos();       
     }
 
     private void eliminarVendedor() {
-//        if (conFilas > 0) {
-//            int resp = JOptionPane.showConfirmDialog(null, "¿Esta seguro?", "Alerta!", JOptionPane.YES_NO_OPTION);
-//            if (resp == YES_OPTION) {
-//                Vendedores.listaVendedores.remove(buscar);
-//                JOptionPane.showMessageDialog(null, "Vendedor eliminado exitosamente!");
-//                vaciarCampos();
-//                conFilas = 0;
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Debes buscar un codigo para eliminar");
-//        }
+        int id = Integer.parseInt(txtCodigo.getText());
+        VenDaoRela ac = new VenDaoRela();
+        ac.eliminar_vendedor(id);
+        JOptionPane.showMessageDialog(null, "Vendedor eliminado");
+        jcGenero.removeAllItems();
+        vaciarCampos();
     }
 
     private void camposVacios() {
 
-        if (txtCodigo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No te olvides del Codigo es muy importante! ");
-        } else if (txtNombre.getText().isEmpty()) {
+        if (txtNombre.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Aun no colocaste nombre del vendedor");
         } else if (txtCaja.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Te falta el dato de la Caja");
@@ -448,26 +514,33 @@ public class VendedoresPerfil extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBus;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCancelar3;
+    private javax.swing.JButton btnCancelarBusqueda;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGenerarPass;
     private javax.swing.JButton btnInsertar;
+    private javax.swing.JDialog jDVen;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jScodigo;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JComboBox<String> jcGenero;
     private javax.swing.JPanel jpFondo;
+    private javax.swing.JLabel lblCodigo;
     private javax.swing.JTextField txtCaja;
     private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtCodigoBus;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPass;
     private javax.swing.JTextField txtVentas;

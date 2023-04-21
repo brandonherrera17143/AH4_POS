@@ -39,7 +39,7 @@ public class PanelAdministrador extends javax.swing.JFrame {
     }
     
     public void mostrarNombreUsuario(String nombre){
-       lblNombreUsuario.setText("Hola mandamos texto " +nombre);
+       lblNombreUsuario.setText("Bienvenido " +nombre);
         
         
     }

@@ -9,11 +9,12 @@ public class PanelAdmin extends javax.swing.JFrame {
     public PanelAdmin() { 
         initComponents();
         initContent();   
+        jButton5.setVisible(false);
         this.setLocationRelativeTo(null);
     }
 
     public void initContent() {
-        ShowPaneles(new SucursalesPanelAdministrador());
+        ShowPaneles(new PanelBienvenida());
     }
 
     public void ShowPaneles(JPanel a) {
@@ -26,16 +27,24 @@ public class PanelAdmin extends javax.swing.JFrame {
         jpContenidoGeneral.repaint();
     }
     private void textoTitulo(int entrada){
-        if (entrada == 0) {
-            lblTextoTituloMenu.setText("");
-        }else if(entrada == 1){
-            lblTextoTituloMenu.setText("PANEL VENDEDOR");
-        } else if(entrada == 2){
-            lblTextoTituloMenu.setText("PANEL CLIENTE");
-        } else if(entrada == 3){
-            lblTextoTituloMenu.setText("PANEL PRODUCTO");
-        } else if(entrada == 4){
-            lblTextoTituloMenu.setText("PANEL SUCURSALES");
+        switch (entrada) {
+            case 0:
+                lblTextoTituloMenu.setText("");
+                break;
+            case 1:
+                lblTextoTituloMenu.setText("PANEL VENDEDOR");
+                break;
+            case 2:
+                lblTextoTituloMenu.setText("PANEL CLIENTE");
+                break;
+            case 3:
+                lblTextoTituloMenu.setText("PANEL PRODUCTO");
+                break;
+            case 4:
+                lblTextoTituloMenu.setText("PANEL SUCURSALES");
+                break;
+            default:
+                break;
         }
     }
     
@@ -44,8 +53,6 @@ public class PanelAdmin extends javax.swing.JFrame {
     private void initComponents() {
 
         jpFondo = new javax.swing.JPanel();
-        TiuloMenu = new javax.swing.JPanel();
-        menuLabel = new javax.swing.JLabel();
         btbCerrar = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -59,38 +66,11 @@ public class PanelAdmin extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jpHeader = new javax.swing.JPanel();
         lblTextoTituloMenu = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jpFondo.setBackground(new java.awt.Color(255, 255, 255));
         jpFondo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        TiuloMenu.setBackground(new java.awt.Color(84, 166, 234));
-
-        menuLabel.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        menuLabel.setForeground(new java.awt.Color(255, 255, 255));
-        menuLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        menuLabel.setText("Menu");
-
-        javax.swing.GroupLayout TiuloMenuLayout = new javax.swing.GroupLayout(TiuloMenu);
-        TiuloMenu.setLayout(TiuloMenuLayout);
-        TiuloMenuLayout.setHorizontalGroup(
-            TiuloMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TiuloMenuLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(menuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        TiuloMenuLayout.setVerticalGroup(
-            TiuloMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TiuloMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(menuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(10, Short.MAX_VALUE))
-        );
-
-        jpFondo.add(TiuloMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 80));
 
         btbCerrar.setBackground(new java.awt.Color(84, 166, 234));
         btbCerrar.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -106,7 +86,7 @@ public class PanelAdmin extends javax.swing.JFrame {
                 btbCerrarActionPerformed(evt);
             }
         });
-        jpFondo.add(btbCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 330, 50));
+        jpFondo.add(btbCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 330, 50));
 
         jButton5.setBackground(new java.awt.Color(84, 166, 234));
         jButton5.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -122,7 +102,7 @@ public class PanelAdmin extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        jpFondo.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 330, 50));
+        jpFondo.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 330, 50));
 
         jButton3.setBackground(new java.awt.Color(84, 166, 234));
         jButton3.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -138,7 +118,7 @@ public class PanelAdmin extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jpFondo.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 330, 50));
+        jpFondo.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 330, 50));
 
         jButton4.setBackground(new java.awt.Color(84, 166, 234));
         jButton4.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -154,7 +134,7 @@ public class PanelAdmin extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jpFondo.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 330, 50));
+        jpFondo.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 330, 50));
 
         btnProductos.setBackground(new java.awt.Color(84, 166, 234));
         btnProductos.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -170,7 +150,7 @@ public class PanelAdmin extends javax.swing.JFrame {
                 btnProductosActionPerformed(evt);
             }
         });
-        jpFondo.add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 330, 50));
+        jpFondo.add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 330, 50));
 
         btnVendedores.setBackground(new java.awt.Color(84, 166, 234));
         btnVendedores.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -186,7 +166,7 @@ public class PanelAdmin extends javax.swing.JFrame {
                 btnVendedoresActionPerformed(evt);
             }
         });
-        jpFondo.add(btnVendedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 330, 50));
+        jpFondo.add(btnVendedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 330, 50));
 
         banner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/blue.jpg"))); // NOI18N
         jpFondo.add(banner, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 630));
@@ -264,22 +244,6 @@ public class PanelAdmin extends javax.swing.JFrame {
 
         jpFondo.add(jpHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 910, 40));
 
-        jButton6.setBackground(new java.awt.Color(84, 166, 234));
-        jButton6.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/sucursales.png"))); // NOI18N
-        jButton6.setText("SUCURSALES");
-        jButton6.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 40, 1, 1, new java.awt.Color(0, 0, 0)));
-        jButton6.setBorderPainted(false);
-        jButton6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton6.setIconTextGap(25);
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        jpFondo.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 330, 50));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -320,19 +284,14 @@ public class PanelAdmin extends javax.swing.JFrame {
         textoTitulo(0);
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
-
     private void btbCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbCerrarActionPerformed
-        Loginv2 cerrarSesion = new Loginv2();
+        LoginPos cerrarSesion = new LoginPos();
         cerrarSesion.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btbCerrarActionPerformed
      
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel TiuloMenu;
     private javax.swing.JLabel banner;
     private javax.swing.JButton btbCerrar;
     private javax.swing.JButton btnProductos;
@@ -340,7 +299,6 @@ public class PanelAdmin extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jpContenidoGeneral;
@@ -348,6 +306,5 @@ public class PanelAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel jpHeader;
     private javax.swing.JPanel jpTituloAdmin;
     private javax.swing.JLabel lblTextoTituloMenu;
-    private javax.swing.JLabel menuLabel;
     // End of variables declaration//GEN-END:variables
 }

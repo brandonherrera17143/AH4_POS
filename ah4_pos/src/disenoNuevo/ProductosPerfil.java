@@ -358,6 +358,9 @@ public class ProductosPerfil extends javax.swing.JPanel {
 
     private void btnCancelar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar3ActionPerformed
         jDialogBusCodSuc.setVisible(false);
+        txtCodigo.setVisible(false);
+        lblCodigo.setVisible(false);
+        jScodigo.setVisible(false);
     }//GEN-LAST:event_btnCancelar3ActionPerformed
 
     private void btnBusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusActionPerformed

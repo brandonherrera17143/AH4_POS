@@ -5,9 +5,15 @@ import clases.Sucursales;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.BorderLayout;
@@ -210,20 +216,40 @@ public class ProductoPanelAdministrador extends javax.swing.JPanel {
 //            PdfWriter.getInstance(doc, new FileOutputStream(ruta + "/Desktop/Reporte_Productos.pdf"));
             
             FileOutputStream gen = new FileOutputStream("Reporte_Producto.pdf");
-            
 
             PdfWriter.getInstance(doc, gen);
             doc.open();
             
-            Paragraph parrafo = new Paragraph("Datos de Productos");
-            parrafo.setAlignment(1);
-            doc.add(parrafo);
+            Paragraph titulo = new Paragraph("Reporte de Productos");
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            Font fontTitulo = FontFactory.getFont(FontFactory.COURIER, 18, Font.BOLD, new BaseColor(0, 102, 204));
+            titulo.setFont(fontTitulo);
+            doc.add(titulo);
+
             doc.add(new Paragraph("\n"));
             PdfPTable tabla = new PdfPTable(4);
-            tabla.addCell("Nombre");
-            tabla.addCell("Descripcion");
-            tabla.addCell("Cantidad");
-            tabla.addCell("Precio");
+            tabla.setWidthPercentage(100);
+
+            float[] cAn = {2f, 2.5f, 1f, 1f};
+            tabla.setWidths(cAn);
+
+            Font fontHeader = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.WHITE);
+
+            PdfPCell celdaNombre = new PdfPCell(new Phrase("Nombre", fontHeader));
+            celdaNombre.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaNombre);
+
+            PdfPCell celdaDescripcion = new PdfPCell(new Phrase("Descripcion", fontHeader));
+            celdaDescripcion.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaDescripcion);
+
+            PdfPCell celdaCantidad = new PdfPCell(new Phrase("Cantidad", fontHeader));
+            celdaCantidad.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaCantidad);
+
+            PdfPCell celdaPrecio = new PdfPCell(new Phrase("Precio", fontHeader));
+            celdaPrecio.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaPrecio);
             try {
                 String sql = "select * from productos";
                 con = acceso.Conectar();
@@ -231,10 +257,10 @@ public class ProductoPanelAdministrador extends javax.swing.JPanel {
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     do {
-                        tabla.addCell(rs.getString(1));
                         tabla.addCell(rs.getString(2));
                         tabla.addCell(rs.getString(3));
                         tabla.addCell(rs.getString(4));
+                        tabla.addCell(rs.getString(5));
                     } while (rs.next());
                     doc.add(tabla);
                 }

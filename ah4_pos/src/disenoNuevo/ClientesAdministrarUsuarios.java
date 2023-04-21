@@ -1,7 +1,33 @@
 package disenoNuevo;
 
+import clases.Cliente;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.BorderLayout;
+import java.awt.HeadlessException;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import model.ClienteDaoRelacional;
+import model.Conexion;
+import model.JsonCargarDatos;
 
 public class ClientesAdministrarUsuarios extends javax.swing.JPanel {
 
@@ -125,7 +151,7 @@ public class ClientesAdministrarUsuarios extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        
+        exportarPDF();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void btbAgregarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbAgregarClientesActionPerformed
@@ -135,7 +161,11 @@ public class ClientesAdministrarUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_btbAgregarClientesActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+        ShowPaneles(new Blanco());
+        JsonCargarDatos archivo = new JsonCargarDatos();
+        String leerarchivo = archivo.leerarchivo();
+        cargaMasiva(leerarchivo);
+        ShowPaneles(new ClientesTabla());
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void btnRegresarTablaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarTablaClientesActionPerformed
@@ -151,6 +181,93 @@ public class ClientesAdministrarUsuarios extends javax.swing.JPanel {
             btnRegresarTablaClientes.setVisible(false);
         }
 
+    }
+    
+     private void cargaMasiva(String leerarchivo) {
+        String archivo_retorno = leerarchivo;
+        JsonParser parse = new JsonParser();
+        JsonArray matriz = parse.parse(archivo_retorno).getAsJsonArray();
+
+        for (int i = 0; i < matriz.size(); i++) {
+            JsonObject object = matriz.get(i).getAsJsonObject();
+            String nombre = object.get("nombre").getAsString();
+            int nit= object.get("nit").getAsInt();
+            String correo= object.get("correo").getAsString();
+            String gen = object.get("genero").getAsString();
+
+            Cliente c = new Cliente(nombre,nit,correo,gen);
+            ClienteDaoRelacional in = new ClienteDaoRelacional();
+            in.crear_cliente(c);
+        }
+    }
+
+    Connection con;
+    PreparedStatement ps;
+    ResultSet rs;
+    Conexion acceso = new Conexion();
+
+    public void exportarPDF() {
+        Document doc = new Document();
+        try {
+//            String ruta = System.getProperty("user.home");
+//            PdfWriter.getInstance(doc, new FileOutputStream(ruta + "/Desktop/Reporte_Productos.pdf"));
+            
+            FileOutputStream gen = new FileOutputStream("Reporte_Clientes.pdf");
+            
+
+            PdfWriter.getInstance(doc, gen);
+            doc.open();
+            
+            Paragraph titulo = new Paragraph("Reporte de Clientes");
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            Font fontTitulo = FontFactory.getFont(FontFactory.COURIER, 18, Font.BOLD, new BaseColor(0, 102, 204));
+            titulo.setFont(fontTitulo);
+            doc.add(titulo);
+
+            doc.add(new Paragraph("\n"));
+            PdfPTable tabla = new PdfPTable(4);
+            tabla.setWidthPercentage(100);
+
+            float[] cAn = {1f, 1f, 2f, 1f};
+            tabla.setWidths(cAn);
+
+            Font fontHeader = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.WHITE);
+
+            PdfPCell celdaNombre = new PdfPCell(new Phrase("Nombre", fontHeader));
+            celdaNombre.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaNombre);
+
+            PdfPCell celdaNit = new PdfPCell(new Phrase("Nit", fontHeader));
+            celdaNit.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaNit);
+
+            PdfPCell celdaCorreo = new PdfPCell(new Phrase("Correo", fontHeader));
+            celdaCorreo.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaCorreo);
+
+            PdfPCell celdaG = new PdfPCell(new Phrase("Genero", fontHeader));
+            celdaG.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaG);
+            try {
+                String sql = "select * from clientes";
+                con = acceso.Conectar();
+                ps = con.prepareStatement(sql);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    do {
+                        tabla.addCell(rs.getString(2));
+                        tabla.addCell(rs.getString(3));
+                        tabla.addCell(rs.getString(4));
+                        tabla.addCell(rs.getString(5));
+                    } while (rs.next());
+                    doc.add(tabla);
+                }
+            } catch (DocumentException | SQLException e) {
+            }
+            doc.close();
+            JOptionPane.showMessageDialog(null, "Reporte Creado.");
+        } catch (DocumentException | HeadlessException | FileNotFoundException e) {
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

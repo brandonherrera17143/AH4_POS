@@ -1,7 +1,34 @@
 package disenoNuevo;
 
+import clases.Producto;
+import clases.Vendedor;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.BorderLayout;
+import java.awt.HeadlessException;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import model.Conexion;
+import model.JsonCargarDatos;
+import model.VenDaoRela;
 
 public class PanelAdminVendedores extends javax.swing.JPanel {
 
@@ -33,7 +60,7 @@ public class PanelAdminVendedores extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
         btbAgregar = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        btnCargaMasiva = new javax.swing.JButton();
         jpContenidoVendedores = new javax.swing.JPanel();
         btnRegresarTabla = new javax.swing.JButton();
 
@@ -77,21 +104,21 @@ public class PanelAdminVendedores extends javax.swing.JPanel {
         });
         add(btbAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 220, 50));
 
-        jButton10.setBackground(new java.awt.Color(84, 166, 234));
-        jButton10.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        jButton10.setForeground(new java.awt.Color(255, 255, 255));
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cargar.png"))); // NOI18N
-        jButton10.setText("CARGA MASIVA");
-        jButton10.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 20, 1, 1, new java.awt.Color(0, 0, 0)));
-        jButton10.setBorderPainted(false);
-        jButton10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jButton10.setIconTextGap(15);
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        btnCargaMasiva.setBackground(new java.awt.Color(84, 166, 234));
+        btnCargaMasiva.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        btnCargaMasiva.setForeground(new java.awt.Color(255, 255, 255));
+        btnCargaMasiva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cargar.png"))); // NOI18N
+        btnCargaMasiva.setText("CARGA MASIVA");
+        btnCargaMasiva.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 20, 1, 1, new java.awt.Color(0, 0, 0)));
+        btnCargaMasiva.setBorderPainted(false);
+        btnCargaMasiva.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnCargaMasiva.setIconTextGap(15);
+        btnCargaMasiva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                btnCargaMasivaActionPerformed(evt);
             }
         });
-        add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, 170, 50));
+        add(btnCargaMasiva, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, 170, 50));
 
         javax.swing.GroupLayout jpContenidoVendedoresLayout = new javax.swing.GroupLayout(jpContenidoVendedores);
         jpContenidoVendedores.setLayout(jpContenidoVendedoresLayout);
@@ -124,7 +151,7 @@ public class PanelAdminVendedores extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-
+        exportarPDF();  
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void btbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbAgregarActionPerformed
@@ -134,9 +161,13 @@ public class PanelAdminVendedores extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btbAgregarActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
+    private void btnCargaMasivaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaMasivaActionPerformed
+        ShowPaneles(new Blanco());
+        JsonCargarDatos archivo = new JsonCargarDatos();
+        String leerarchivo = archivo.leerarchivo();
+        cargaMasiva(leerarchivo);
+        ShowPaneles(new TablaVendedores());
+    }//GEN-LAST:event_btnCargaMasivaActionPerformed
 
     private void btnRegresarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarTablaActionPerformed
         ShowPaneles(new TablaVendedores());
@@ -152,11 +183,106 @@ public class PanelAdminVendedores extends javax.swing.JPanel {
         }
 
     }
+    
+    
+     private void cargaMasiva(String leerarchivo) {
+        String archivo_retorno = leerarchivo;
+        JsonParser parse = new JsonParser();
+        JsonArray matriz = parse.parse(archivo_retorno).getAsJsonArray();
+
+        for (int i = 0; i < matriz.size(); i++) {
+            JsonObject object = matriz.get(i).getAsJsonObject();
+            String nombre = object.get("nombre").getAsString();
+            int caja = object.get("caja").getAsInt();
+            int ven = object.get("ventas").getAsInt();
+            String gen = object.get("genero").getAsString();
+            String pass = object.get("password").getAsString();
+
+            Vendedor in = new Vendedor(nombre,caja,ven,gen,pass);
+            VenDaoRela insertar = new VenDaoRela();
+            insertar.crear_vendedor(in);
+
+        }
+    }
+
+    Connection con;
+    PreparedStatement ps;
+    ResultSet rs;
+    Conexion acceso = new Conexion();
+
+    public void exportarPDF() {
+        Document doc = new Document();
+        try {
+//            String ruta = System.getProperty("user.home");
+//            PdfWriter.getInstance(doc, new FileOutputStream(ruta + "/Desktop/Reporte_Productos.pdf"));
+            
+            FileOutputStream gen = new FileOutputStream("Reporte_Vendedores.pdf");
+            
+
+            PdfWriter.getInstance(doc, gen);
+            doc.open();
+            
+            Paragraph titulo = new Paragraph("Reporte de Vendedores");
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            Font fontTitulo = FontFactory.getFont(FontFactory.COURIER, 18, Font.BOLD, new BaseColor(0, 102, 204));
+            titulo.setFont(fontTitulo);
+            doc.add(titulo);
+
+            doc.add(new Paragraph("\n"));
+            PdfPTable tabla = new PdfPTable(5);
+            tabla.setWidthPercentage(100);
+
+            float[] cAn = {0.70f, 0.45f, 0.45f,0.50f, 2f};
+            tabla.setWidths(cAn);
+
+            Font fontHeader = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.WHITE);
+
+            PdfPCell celdaNombre = new PdfPCell(new Phrase("Nombre", fontHeader));
+            celdaNombre.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaNombre);
+
+            PdfPCell celdaC = new PdfPCell(new Phrase("Caja", fontHeader));
+            celdaC.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaC);
+
+            PdfPCell celdaV = new PdfPCell(new Phrase("Ventas", fontHeader));
+            celdaV.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaV);
+
+            PdfPCell celdaG = new PdfPCell(new Phrase("Genero", fontHeader));
+            celdaG.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaG);
+            
+            PdfPCell celdaP = new PdfPCell(new Phrase("Password", fontHeader));
+            celdaP.setBackgroundColor(BaseColor.GRAY);
+            tabla.addCell(celdaP);
+            try {
+                String sql = "select * from vendedores";
+                con = acceso.Conectar();
+                ps = con.prepareStatement(sql);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    do {
+                        tabla.addCell(rs.getString(2));
+                        tabla.addCell(rs.getString(3));
+                        tabla.addCell(rs.getString(4));
+                        tabla.addCell(rs.getString(5));
+                        tabla.addCell(rs.getString(6));
+                    } while (rs.next());
+                    doc.add(tabla);
+                }
+            } catch (DocumentException | SQLException e) {
+            }
+            doc.close();
+            JOptionPane.showMessageDialog(null, "Reporte Creado.");
+        } catch (DocumentException | HeadlessException | FileNotFoundException e) {
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btbAgregar;
+    private javax.swing.JButton btnCargaMasiva;
     private javax.swing.JButton btnRegresarTabla;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jpContenidoVendedores;
