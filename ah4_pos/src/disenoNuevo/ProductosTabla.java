@@ -47,7 +47,6 @@ public class ProductosTabla extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     public void llenarTablaProductos() {
-        int numero = 1;
         String columnas[] = {"Codigo","Nombre","Descripcion","cantidad","Precio"};
         tablaBandera = new DefaultTableModel(null, columnas);
         ProductoDaoRelacional obtener = new ProductoDaoRelacional();

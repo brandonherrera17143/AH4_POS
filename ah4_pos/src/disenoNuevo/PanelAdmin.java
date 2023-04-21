@@ -106,7 +106,7 @@ public class PanelAdmin extends javax.swing.JFrame {
                 btbCerrarActionPerformed(evt);
             }
         });
-        jpFondo.add(btbCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 330, 50));
+        jpFondo.add(btbCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 330, 50));
 
         jButton5.setBackground(new java.awt.Color(84, 166, 234));
         jButton5.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -122,7 +122,7 @@ public class PanelAdmin extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        jpFondo.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 330, 50));
+        jpFondo.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 400, 330, 50));
 
         jButton3.setBackground(new java.awt.Color(84, 166, 234));
         jButton3.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -138,7 +138,7 @@ public class PanelAdmin extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jpFondo.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 330, 50));
+        jpFondo.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 330, 50));
 
         jButton4.setBackground(new java.awt.Color(84, 166, 234));
         jButton4.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -154,7 +154,7 @@ public class PanelAdmin extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jpFondo.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 330, 50));
+        jpFondo.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 330, 50));
 
         btnProductos.setBackground(new java.awt.Color(84, 166, 234));
         btnProductos.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -170,7 +170,7 @@ public class PanelAdmin extends javax.swing.JFrame {
                 btnProductosActionPerformed(evt);
             }
         });
-        jpFondo.add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 330, 50));
+        jpFondo.add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 330, 50));
 
         btnVendedores.setBackground(new java.awt.Color(84, 166, 234));
         btnVendedores.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -186,7 +186,7 @@ public class PanelAdmin extends javax.swing.JFrame {
                 btnVendedoresActionPerformed(evt);
             }
         });
-        jpFondo.add(btnVendedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 330, 50));
+        jpFondo.add(btnVendedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 330, 50));
 
         banner.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/blue.jpg"))); // NOI18N
         jpFondo.add(banner, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 630));
