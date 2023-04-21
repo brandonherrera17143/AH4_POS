@@ -1,9 +1,6 @@
-package usuarios;
+package clases;
 
-import java.util.Collection;
-import java.util.LinkedList;
 import java.util.Random;
-import javax.swing.JOptionPane;
 
 public class Vendedor {
 
@@ -24,10 +21,18 @@ public class Vendedor {
         this.caja = caja;
         this.ventas = ventas;
         this.genero = genero;
-        this.pass = pass;
-       
+        this.pass = pass;    
     }
 
+    public Vendedor(String nombre, int caja, int ventas, String genero, String pass) {
+        this.nombre = nombre;
+        this.caja = caja;
+        this.ventas = ventas;
+        this.genero = genero;
+        this.pass = pass;
+    }
+    
+    
     public int getCodigo() {
         return codigo;
     }

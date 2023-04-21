@@ -231,10 +231,10 @@ public class ProductoPanelAdministrador extends javax.swing.JPanel {
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     do {
-                        tabla.addCell(rs.getString(1));
                         tabla.addCell(rs.getString(2));
                         tabla.addCell(rs.getString(3));
                         tabla.addCell(rs.getString(4));
+                        tabla.addCell(rs.getString(5));
                     } while (rs.next());
                     doc.add(tabla);
                 }

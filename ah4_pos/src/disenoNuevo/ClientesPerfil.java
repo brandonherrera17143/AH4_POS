@@ -5,7 +5,6 @@ import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_OPTION;
 import model.ClienteDaoRelacional;
 
-
 public class ClientesPerfil extends javax.swing.JPanel {
 
     ClientesAdministrarUsuarios regresar;
@@ -378,7 +377,6 @@ public class ClientesPerfil extends javax.swing.JPanel {
 
     public void guardarCliente() {
 
-        //cliente.setGenero(String.valueOf(jcGenero.getSelectedItem()));
         String nombre = txtNombre.getText();
         int nit = Integer.parseInt(txtNit.getText());
         String co = txtCorreo.getText();

@@ -1,7 +1,6 @@
 package disenoNuevo;
 
 import clases.Cliente;
-import clases.Producto;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -23,7 +22,6 @@ import javax.swing.JPanel;
 import model.ClienteDaoRelacional;
 import model.Conexion;
 import model.JsonCargarDatos;
-import model.ProductoDaoRelacional;
 
 public class ClientesAdministrarUsuarios extends javax.swing.JPanel {
 
@@ -230,10 +228,10 @@ public class ClientesAdministrarUsuarios extends javax.swing.JPanel {
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     do {
-                        tabla.addCell(rs.getString(1));
                         tabla.addCell(rs.getString(2));
                         tabla.addCell(rs.getString(3));
                         tabla.addCell(rs.getString(4));
+                        tabla.addCell(rs.getString(5));
                     } while (rs.next());
                     doc.add(tabla);
                 }

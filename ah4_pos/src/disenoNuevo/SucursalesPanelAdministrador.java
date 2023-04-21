@@ -204,8 +204,10 @@ public class SucursalesPanelAdministrador extends javax.swing.JPanel {
     public void exportarPDF() {
         Document doc = new Document();
         try {
-            String ruta = System.getProperty("user.home");
-            PdfWriter.getInstance(doc, new FileOutputStream(ruta + "/Desktop/Reporte_Sucursales.pdf"));
+//            String ruta = System.getProperty("user.home");
+//            PdfWriter.getInstance(doc, new FileOutputStream(ruta + "/Desktop/Reporte_Sucursales.pdf"));
+            FileOutputStream gen = new FileOutputStream("Reporte_Sucursales.pdf");
+            PdfWriter.getInstance(doc, gen);
             doc.open();
             
             Paragraph parrafo = new Paragraph("Datos de Sucursales");
@@ -224,10 +226,10 @@ public class SucursalesPanelAdministrador extends javax.swing.JPanel {
                 rs = ps.executeQuery();
                 if (rs.next()) {
                     do {
-                        tabla.addCell(rs.getString(1));
                         tabla.addCell(rs.getString(2));
                         tabla.addCell(rs.getString(3));
                         tabla.addCell(rs.getString(4));
+                        tabla.addCell(rs.getString(5));
                     } while (rs.next());
                     doc.add(tabla);
                 }
